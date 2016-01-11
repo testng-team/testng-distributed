@@ -8,8 +8,8 @@
         <version>1.0.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>testng-remote-common</artifactId>
-    <name>TestNG Remote - Common</name>
+    <artifactId>testng-remote</artifactId>
+    <name>TestNG Remote</name>
 
     <properties>
         <testng.version>6.5.1</testng.version>

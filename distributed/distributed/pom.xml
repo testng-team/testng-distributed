@@ -4,12 +4,12 @@
 
     <parent>
         <groupId>org.testng</groupId>
-        <artifactId>testng-remote-parent</artifactId>
+        <artifactId>testng-distributed-parent</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>testng-distributed</artifactId>
-    <name>TestNG Distributed - Common</name>
+    <name>TestNG Distributed</name>
 
     <properties>
         <testng.version>6.9.11-SNAPSHOT</testng.version>
@@ -18,7 +18,7 @@
     <dependencies>
         <dependency>
             <groupId>org.testng</groupId>
-            <artifactId>testng-remote-common</artifactId>
+            <artifactId>testng-remote</artifactId>
         </dependency>
         <dependency>
             <groupId>org.testng</groupId>

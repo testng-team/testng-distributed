@@ -4,9 +4,9 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.testng.CommandLineArgs;
-import org.testng.IExecutionListener;
 import org.testng.ISuite;
 import org.testng.TestNG;
+import org.testng.remote.RemoteArgs;
 import org.testng.remote.SuiteDispatcher;
 import org.testng.remote.SuiteSlave;
 
@@ -14,13 +14,19 @@ import com.beust.jcommander.JCommander;
 import com.beust.jcommander.ParameterException;
 
 public class DistributedTestNG extends TestNG {
+  public static final String VERSION = "testng.version";
+
   private String m_slavefileName = null;
   private String m_masterfileName = null;
 
   public static void main(String[] args) throws ParameterException {
     CommandLineArgs cla = new CommandLineArgs();
     DistributedArgs distArgs = new DistributedArgs();
-    new JCommander(Arrays.asList(cla, distArgs), args);
+    RemoteArgs ra = new RemoteArgs();
+    new JCommander(Arrays.asList(cla, ra, distArgs), args);
+    if (ra.version != null) {
+      System.setProperty(VERSION, ra.version.toString());
+    }
     DistributedTestNG distributedTestNg = new DistributedTestNG();
     initAndRun(distributedTestNg, args, cla, distArgs);
   }
@@ -33,18 +39,6 @@ public class DistributedTestNG extends TestNG {
 
     distributedTestNg.setMaster(distArgs.master);
     distributedTestNg.setSlave(distArgs.slave);
-
-    distributedTestNg.addExecutionListener(new IExecutionListener() {
-
-      @Override
-      public void onExecutionStart() {
-
-      }
-
-      @Override
-      public void onExecutionFinish() {
-      }
-    });
   }
 
   public DistributedTestNG() {

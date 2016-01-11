@@ -8,6 +8,7 @@ import org.testng.ITestResult;
 import org.testng.SuiteRunner;
 import org.testng.TestNGException;
 import org.testng.collections.Lists;
+import org.testng.distributed.DistributedTestNG;
 import org.testng.distributed.support.ServiceLoaderHelper;
 import org.testng.distributed.support.SuiteDispatcherAdapter;
 import org.testng.internal.IConfiguration;
@@ -84,7 +85,7 @@ public class SuiteDispatcher
 			}
 			m_masterAdapter.init(properties);
 
-            String version = properties.getProperty(RemoteTestNG.VERSION);
+            String version = properties.getProperty(DistributedTestNG.VERSION);
             adapter = ServiceLoaderHelper.getFirst(version == null ? null : new Version(version)).createSuiteDispatcherAdapter();
 		}
 		catch( Exception e)

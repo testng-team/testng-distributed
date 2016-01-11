@@ -16,7 +16,6 @@
         <module>common</module>
         <module>remote6_9_10</module>
         <module>remote6_9_7</module>
-        <module>remote6_8</module>
         <module>remote6_5</module>
         <module>dist</module>
     </modules>

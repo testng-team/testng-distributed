@@ -3,7 +3,6 @@ package test;
 import org.testng.Assert;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 public class BaseDistributedTest {
@@ -39,11 +38,10 @@ public class BaseDistributedTest {
       }
     }
   }
+
   private void ppp(String s) {
     if (m_verbose) {
       System.out.println("[BaseDistributedTest] " + s);
     }
   }
-
-
 }

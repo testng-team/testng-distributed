@@ -10,12 +10,17 @@
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
+
+# Maven
 target/
+dependency-reduced-pom.xml
+
+# IDE metadata
 .settings/
 .classpath
 .project
 .idea/
 *.iml
 
-dependency-reduced-pom.xml
+test-output/
 

@@ -39,6 +39,8 @@ public class DistributedTestNG extends TestNG {
 
     distributedTestNg.setMaster(distArgs.master);
     distributedTestNg.setSlave(distArgs.slave);
+
+    distributedTestNg.run();
   }
 
   public DistributedTestNG() {

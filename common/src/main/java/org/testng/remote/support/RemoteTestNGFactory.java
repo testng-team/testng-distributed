@@ -6,6 +6,5 @@ import org.testng.remote.IRemoteTestNG;
 public interface RemoteTestNGFactory {
 
     boolean accept(Version version);
-    SuiteDispatcherAdapter createSuiteDispatcherAdapter();
     IRemoteTestNG createRemoteTestNG();
 }

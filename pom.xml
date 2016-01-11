@@ -13,6 +13,7 @@
         <module>remote6_9_7</module>
         <module>remote6_8</module>
         <module>remote6_5</module>
+        <module>distributed</module>
         <module>dist</module>
     </modules>
 
@@ -40,6 +41,17 @@
             <dependency>
                 <groupId>org.testng</groupId>
                 <artifactId>testng-remote-common</artifactId>
+                <version>${project.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.testng</groupId>
+                        <artifactId>testng</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>org.testng</groupId>
+                <artifactId>testng-distributed</artifactId>
                 <version>${project.version}</version>
                 <exclusions>
                     <exclusion>

@@ -169,11 +169,11 @@ public abstract class AbstractRemoteTestNG extends TestNG implements IRemoteTest
    */
   protected abstract ITestRunnerFactory buildTestRunnerFactory();
 
-  private String getHost() {
+  protected String getHost() {
     return m_host;
   }
 
-  private int getPort() {
+  protected int getPort() {
     return m_port;
   }
 

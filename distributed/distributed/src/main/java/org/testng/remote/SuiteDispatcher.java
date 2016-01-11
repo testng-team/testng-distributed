@@ -8,6 +8,8 @@ import org.testng.ITestResult;
 import org.testng.SuiteRunner;
 import org.testng.TestNGException;
 import org.testng.collections.Lists;
+import org.testng.distributed.support.ServiceLoaderHelper;
+import org.testng.distributed.support.SuiteDispatcherAdapter;
 import org.testng.internal.IConfiguration;
 import org.testng.internal.Invoker;
 import org.testng.internal.PropertiesFile;
@@ -15,8 +17,6 @@ import org.testng.internal.Utils;
 import org.testng.remote.adapter.DefaultMastertAdapter;
 import org.testng.remote.adapter.IMasterAdapter;
 import org.testng.remote.adapter.RemoteResultListener;
-import org.testng.remote.support.ServiceLoaderHelper;
-import org.testng.remote.support.SuiteDispatcherAdapter;
 import org.testng.xml.XmlSuite;
 import org.testng.xml.XmlTest;
 

@@ -1,4 +1,4 @@
-package org.testng.remote.support;
+package org.testng.distributed.support;
 
 import org.testng.xml.XmlSuite;
 import org.testng.xml.XmlTest;

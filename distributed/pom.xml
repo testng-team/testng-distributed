@@ -17,6 +17,7 @@
         <module>distributed6_9_7</module>
         <module>distributed6_8</module>
         <module>distributed6_5</module>
+        <module>dist</module>
     </modules>
 
 </project>

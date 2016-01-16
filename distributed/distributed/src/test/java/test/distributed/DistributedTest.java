@@ -1,11 +1,13 @@
 package test.distributed;
 
+import org.osgi.framework.Version;
 import org.testng.Assert;
 import org.testng.ITestResult;
 import org.testng.TestListenerAdapter;
 import org.testng.annotations.Test;
 import org.testng.distributed.DistributedArgs;
 import org.testng.distributed.DistributedTestNG;
+import org.testng.remote.RemoteArgs;
 import org.testng.remote.SuiteDispatcher;
 import org.testng.remote.SuiteSlave;
 import org.testng.remote.adapter.DefaultMastertAdapter;
@@ -32,11 +34,16 @@ public abstract class DistributedTest extends BaseDistributedTest {
 
   private List<Thread> m_hostThreads = new ArrayList<>();
 
+  protected abstract String getTestNGVersion();
+  
   protected Thread startSlave(final String filename) {
     Thread result = new Thread(new Runnable() {
       @Override
       public void run() {
-        DistributedTestNG.main(new String[] { DistributedArgs.SLAVE, filename, "-d", OutputDirectoryPatch.getOutputDirectory() });
+        DistributedTestNG.main(new String[] {
+            DistributedArgs.SLAVE, filename, 
+            RemoteArgs.VERSION, getTestNGVersion(), 
+            "-d", OutputDirectoryPatch.getOutputDirectory() });
       }
     });
     result.setName("Slave-" + filename);
@@ -106,6 +113,12 @@ public abstract class DistributedTest extends BaseDistributedTest {
 
 	  slaveFile = createSlaveProperties(m_ports[1]);
 	  startSlave( slaveFile.getCanonicalPath());
+	  
+	  try {
+		Thread.sleep(1000);
+	} catch (InterruptedException e) {
+		e.printStackTrace();
+	}
   }
 
   private String[] m_ports = new String[2];
@@ -114,8 +127,10 @@ public abstract class DistributedTest extends BaseDistributedTest {
     DistributedTestNG tng = new DistributedTestNG();
     tng.setOutputDirectory(OutputDirectoryPatch.getOutputDirectory());
 
+    tng.setTestngVersion(new Version(getTestNGVersion()));
+
     File masterFile = createMasterProperties(strategy);
-    tng.setMaster(masterFile.getAbsolutePath());
+    tng.setMasterPropertiesFile(masterFile.getAbsolutePath());
 
     XmlSuite suite = createSuite("DistributedSuite1", new Class[] { Test1.class, Test2.class });
     tng.setXmlSuites(Arrays.asList(new XmlSuite[] { suite }));
@@ -157,7 +172,7 @@ public abstract class DistributedTest extends BaseDistributedTest {
     Assert.assertTrue(found2, "No tests ran on port " + m_ports[1]);
   }
 
-  @Test
+  @Test(enabled=false)
   public void twoHostsWithSuiteStrategy() throws IOException {
     startSlaves();
     twoHosts(SuiteDispatcher.STRATEGY_SUITE);

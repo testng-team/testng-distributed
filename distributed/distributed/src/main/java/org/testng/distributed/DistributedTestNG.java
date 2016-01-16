@@ -1,8 +1,10 @@
 package org.testng.distributed;
 
+import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.List;
 
+import org.osgi.framework.Version;
 import org.testng.CommandLineArgs;
 import org.testng.ISuite;
 import org.testng.TestNG;
@@ -16,6 +18,8 @@ import com.beust.jcommander.ParameterException;
 public class DistributedTestNG extends TestNG {
   public static final String VERSION = "testng.version";
 
+  public static Version TESTNG_VERSION;
+
   private String m_slavefileName = null;
   private String m_masterfileName = null;
 
@@ -24,21 +28,23 @@ public class DistributedTestNG extends TestNG {
     DistributedArgs distArgs = new DistributedArgs();
     RemoteArgs ra = new RemoteArgs();
     new JCommander(Arrays.asList(cla, ra, distArgs), args);
-    if (ra.version != null) {
-      System.setProperty(VERSION, ra.version.toString());
-    }
+
     DistributedTestNG distributedTestNg = new DistributedTestNG();
-    initAndRun(distributedTestNg, args, cla, distArgs);
+    initAndRun(distributedTestNg, args, cla, ra, distArgs);
   }
 
   private static void initAndRun(DistributedTestNG distributedTestNg, String[] args, CommandLineArgs cla,
-      DistributedArgs distArgs) {
+      RemoteArgs ra, DistributedArgs distArgs) {
     if (distArgs.slave != null && distArgs.master != null) {
       throw new ParameterException(DistributedArgs.SLAVE + " can't be combined with " + DistributedArgs.MASTER);
     }
 
-    distributedTestNg.setMaster(distArgs.master);
-    distributedTestNg.setSlave(distArgs.slave);
+    if (ra.version != null) {
+      distributedTestNg.setTestngVersion(ra.version);
+    }
+
+    distributedTestNg.setMasterPropertiesFile(distArgs.master);
+    distributedTestNg.setSlavePropertiesFile(distArgs.slave);
 
     distributedTestNg.run();
   }
@@ -74,7 +80,17 @@ public class DistributedTestNG extends TestNG {
    * @param fileName
    *          remote.properties path
    */
-  public void setMaster(String fileName) {
+  public void setMasterPropertiesFile(String fileName) {
+    if (fileName != null) {
+      try {
+        Method setMasterMethod = TestNG.class.getDeclaredMethod("setMaster", String.class);
+        if (setMasterMethod != null) {
+          setMasterMethod.invoke(this, fileName);
+        }
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
+    }
     m_masterfileName = fileName;
   }
 
@@ -84,7 +100,21 @@ public class DistributedTestNG extends TestNG {
    * @param fileName
    *          remote.properties path
    */
-  public void setSlave(String fileName) {
+  public void setSlavePropertiesFile(String fileName) {
+    if (fileName != null) {
+      try {
+        Method setSlaveMethod = TestNG.class.getDeclaredMethod("setSlave", String.class);
+        if (setSlaveMethod != null) {
+          setSlaveMethod.invoke(this, fileName);
+        }
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
+    }
     m_slavefileName = fileName;
+  }
+  
+  public void setTestngVersion(Version ver) {
+    TESTNG_VERSION = ver;
   }
 }

@@ -1,8 +1,10 @@
 package test.distributed;
 
+import java.io.Serializable;
+
 import org.testng.annotations.Test;
 
-public class Test1 {
+public class Test1 implements Serializable {
   @Test
   public void f1() {
 //    ppp("f1");
@@ -12,4 +14,3 @@ public class Test1 {
     System.out.println("[Test1] " + s);
   }
 }
-

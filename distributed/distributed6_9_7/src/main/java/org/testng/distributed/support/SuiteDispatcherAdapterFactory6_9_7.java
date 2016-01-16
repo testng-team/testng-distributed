@@ -8,7 +8,7 @@ import com.google.auto.service.AutoService;
 @AutoService(SuiteDispatcherAdapterFactory.class)
 public class SuiteDispatcherAdapterFactory6_9_7 extends AbstractSuiteDispatcherAdapterFactory {
 
-  private static final VersionRange RANGE = new VersionRange("(6.9.7)");
+  private static final VersionRange RANGE = new VersionRange("6.9.7");
 
   @Override
   public SuiteDispatcherAdapter createSuiteDispatcherAdapter() {

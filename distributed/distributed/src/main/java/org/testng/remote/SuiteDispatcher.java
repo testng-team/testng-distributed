@@ -85,8 +85,7 @@ public class SuiteDispatcher
 			}
 			m_masterAdapter.init(properties);
 
-            String version = properties.getProperty(DistributedTestNG.VERSION);
-            adapter = ServiceLoaderHelper.getFirst(version == null ? null : new Version(version)).createSuiteDispatcherAdapter();
+			adapter = ServiceLoaderHelper.getFirst(DistributedTestNG.TESTNG_VERSION).createSuiteDispatcherAdapter();
 		}
 		catch( Exception e)
 		{

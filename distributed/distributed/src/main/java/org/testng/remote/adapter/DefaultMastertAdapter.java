@@ -52,6 +52,7 @@ implements IMasterAdapter
 			catch (NumberFormatException | UnknownHostException e) {
 				e.printStackTrace(System.out);
 			} catch (IOException e) {
+			  e.printStackTrace();
 				Utils.error("Couldn't connect to " + host + ": " + e.getMessage());
 			}
 		}
@@ -79,6 +80,6 @@ implements IMasterAdapter
 	@Override
   public void awaitTermination(long timeout) throws InterruptedException
 	{
-		ThreadUtil.execute(m_workers, 1, 10 * 1000L, false);
+		ThreadUtil.execute(m_workers, m_workers.size(), 10 * 1000L, false);
 	}
 }

@@ -63,7 +63,7 @@ public class DefaultWorkerAdapter implements IWorkerAdapter
 			m_connectionInfo.getOos().writeObject(result);
 		}
 		catch(IOException ex) {
-			log("Connection closed " + ex.getMessage());
+			log("Connection closed on port " + m_clientPort + ": " + ex.getMessage());
 			m_connectionInfo = resetSocket(m_clientPort, m_connectionInfo);
 			throw ex;
 		}

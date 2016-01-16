@@ -12,7 +12,7 @@
     <name>TestNG Distributed for version [6.9.7, -)</name>
 
     <properties>
-        <testng.version>6.9.8</testng.version>
+        <testng.version>6.9.11-SNAPSHOT</testng.version>
     </properties>
 
     <dependencies>
@@ -29,6 +29,11 @@
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
             <version>${testng.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.inject</groupId>
+            <artifactId>guice</artifactId>
+            <classifier>no_aop</classifier>
         </dependency>
         <dependency>
             <groupId>com.google.auto.service</groupId>
